@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "App using Wizard library from Assignment-L1",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -19,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/AndreaViolaCaroline/1dv610-assignment-L2/issues"
   },
-  "homepage": "https://github.com/AndreaViolaCaroline/1dv610-assignment-L2#readme"
+  "homepage": "https://github.com/AndreaViolaCaroline/1dv610-assignment-L2#readme",
+  "dependencies": {
+    "@violacaroline/wizard": "^1.0.1",
+    "vite": "^3.1.6"
+  }
 }
