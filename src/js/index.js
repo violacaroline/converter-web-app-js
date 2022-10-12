@@ -10,7 +10,7 @@
  import './components/temp.js'
  import './components/distance.js'
  import './components/weight.js'
-
+ import './components/volume.js'
 
  /* DOCUMENT CONTAINERS */
  const header = document.querySelector('#header')
@@ -23,7 +23,7 @@
  const temp = document.createElement('temp-component')
  const distance = document.createElement('distance-component')
  const weight = document.createElement('weight-component')
-
+ const volume = document.createElement('volume-component')
 
 
  header.appendChild(navigation)
@@ -45,6 +45,6 @@
  navigation.addEventListener('convertWeight', () => {
   container.replaceChild(weight, container.firstChild)
  })
- navigation.addEventListener('convertWind', () => {
-  container.replaceChild(wind, container.firstChild)
+ navigation.addEventListener('convertVolume', () => {
+  container.replaceChild(volume, container.firstChild)
  })
