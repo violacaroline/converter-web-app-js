@@ -1,4 +1,5 @@
 import './result.js'
+import Wizard from '@violacaroline/wizard'
 /**
  * The wind web component module.
  */
@@ -47,6 +48,8 @@ template.innerHTML = `
     <div id="container">      
       <form action="">
       <h1>Convert wind ...</h1>
+        <label for="input-value"></label>
+        <input id="input-value" type="text" placeholder="Value" />
         <label for="input-from"></label>
         <input list="wind-values" id="input-from" type="text" placeholder="From" />
         <datalist id="wind-values">
@@ -67,7 +70,7 @@ template.innerHTML = `
         </datalist>
         <button id="convert-btn">Convert!</button>
       </form>
-      <result-component></result-component>
+      <result-component id="result"></result-component>
     </div>
   `
 
@@ -76,11 +79,17 @@ customElements.define('wind-component',
    * Represents the wind element.
    */
   class extends HTMLElement {
+    #container
+
+    #inputValue
+
     #inputFrom
 
     #inputTo
 
     #convertBtn
+
+    #wizard = new Wizard()
 
     /**
       * Creates an instance of the current type.
@@ -95,9 +104,37 @@ customElements.define('wind-component',
         .appendChild(template.content.cloneNode(true))
 
       // Get necessary elements in shadowroot.
-      this.inputFrom = this.shadowRoot.querySelector('#input-from')
-      this.inputTo = this.shadowRoot.querySelector('#input-to')
+      this.#container = this.shadowRoot.querySelector('#container')
+      this.#inputValue = this.shadowRoot.querySelector('#input-value')
+      this.#inputFrom = this.shadowRoot.querySelector('#input-from')
+      this.#inputTo = this.shadowRoot.querySelector('#input-to')
       this.#convertBtn = this.shadowRoot.querySelector('#convert-btn')
+    }
+
+    /**
+      * Called when element is inserted to the DOM.
+      *
+      */
+    connectedCallback () {
+
+      this.#convertBtn.addEventListener('click', (event) => {
+        event.preventDefault()
+        console.log('Clicked the convert button')
+        console.log('From', this.#container.querySelector('#input-from').value)
+        console.log('To', this.#container.querySelector('#input-to').value)
+        console.log('Value', this.#container.querySelector('#input-value').value)
+
+        // const convert = new window.CustomEvent('convert')
+        // this.dispatchEvent(convert)
+      
+        // const options = {
+        //   fromUnit: this.#inputFrom.value,
+        //   toUnit: this.#inputTo.value,
+        //   value: this.#inputValue.value
+        // }
+
+        // console.log('Result: ', wizard.convertWind(options))
+      })
     }
   }
 )

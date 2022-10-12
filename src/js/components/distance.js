@@ -46,6 +46,8 @@ template.innerHTML = `
      <div id="container">       
        <form action="">
         <h1>Convert distance ...</h1>
+         <label for="input-value"></label>
+         <input id="input-value" type="text" placeholder="Value" />
          <label for="input-from"></label>
          <input list="distance-values-from" id="input-from" type="text" placeholder="From" />
          <datalist id="distance-values-from">
@@ -69,6 +71,8 @@ customElements.define('distance-component',
    * Represents the distance element.
    */
   class extends HTMLElement {
+    #inputValue
+
     #inputFrom
 
     #inputTo
@@ -88,8 +92,9 @@ customElements.define('distance-component',
         .appendChild(template.content.cloneNode(true))
 
       // Get necessary elements in shadowroot.
-      this.inputFrom = this.shadowRoot.querySelector('#input-from')
-      this.inputTo = this.shadowRoot.querySelector('#input-to')
+      this.#inputValue = this.shadowRoot.querySelector('#input-value')
+      this.#inputFrom = this.shadowRoot.querySelector('#input-from')
+      this.#inputTo = this.shadowRoot.querySelector('#input-to')
       this.#convertBtn = this.shadowRoot.querySelector('#convert-btn')
     }
   }

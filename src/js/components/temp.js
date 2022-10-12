@@ -46,7 +46,9 @@ template.innerHTML = `
      </style>
      <div id="container">       
        <form action="">
-        <h1>Convert Temperature ...</h1>
+        <h1>Convert Temperature...</h1>
+         <label for="input-value"></label>
+         <input id="input-value" type="text" placeholder="Value" />
          <label for="input-from"></label>
          <input list="temp-values" id="input-from" type="text" placeholder="From" />
          <datalist id="temp-values">
@@ -70,6 +72,8 @@ customElements.define('temp-component',
    * Represents the temp element.
    */
   class extends HTMLElement {
+    #inputValue
+
     #inputFrom
 
     #inputTo
@@ -89,8 +93,9 @@ customElements.define('temp-component',
         .appendChild(template.content.cloneNode(true))
 
       // Get necessary elements in shadowroot.
-      this.inputFrom = this.shadowRoot.querySelector('#input-from')
-      this.inputTo = this.shadowRoot.querySelector('#input-to')
+      this.#inputValue = this.shadowRoot.querySelector('#input-value')
+      this.#inputFrom = this.shadowRoot.querySelector('#input-from')
+      this.#inputTo = this.shadowRoot.querySelector('#input-to')
       this.#convertBtn = this.shadowRoot.querySelector('#convert-btn')
     }
   }
