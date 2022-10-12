@@ -67,7 +67,7 @@ template.innerHTML = `
 
 customElements.define('wind-component',
   /**
-   * Represents the navigation element.
+   * Represents the wind element.
    */
   class extends HTMLElement {
     #inputFrom
@@ -89,7 +89,6 @@ customElements.define('wind-component',
         .appendChild(template.content.cloneNode(true))
 
       // Get necessary elements in shadowroot.
-      // REMOVE WHEN CREATED NEW ONES - this.inputField = this.shadowRoot.querySelector('#input-name')
       this.inputFrom = this.shadowRoot.querySelector('#input-from')
       this.inputTo = this.shadowRoot.querySelector('#input-to')
       this.#convertBtn = this.shadowRoot.querySelector('#convert-btn')
