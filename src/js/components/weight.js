@@ -1,7 +1,7 @@
+import './result.js'
 /**
  * The weight web component module.
  */
-
  const template = document.createElement('template')
  template.innerHTML = `
      <style>
@@ -56,6 +56,7 @@
          </datalist>
          <button id="convert-btn">Convert!</button>
        </form>
+       <result-component></result-component>
      </div>
    `
  

@@ -1,3 +1,4 @@
+import './result.js'
 /**
  * The temperature web component module.
  */
@@ -56,6 +57,7 @@ template.innerHTML = `
          </datalist>
          <button id="convert-btn">Convert!</button>
        </form>
+       <result-component></result-component>
      </div>
    `
 

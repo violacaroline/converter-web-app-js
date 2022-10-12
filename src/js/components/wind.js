@@ -1,3 +1,4 @@
+import './result.js'
 /**
  * The wind web component module.
  */
@@ -41,7 +42,7 @@ template.innerHTML = `
     </style>
     <div id="container">
       <h1>Convert wind ...</h1>
-      <form action="">
+      <form id="form-global" action="">
         <label for="input-from"></label>
         <input list="wind-values" id="input-from" type="text" placeholder="From" />
         <datalist id="wind-values">
@@ -62,6 +63,7 @@ template.innerHTML = `
         </datalist>
         <button id="convert-btn">Convert!</button>
       </form>
+      <result-component></result-component>
     </div>
   `
 
