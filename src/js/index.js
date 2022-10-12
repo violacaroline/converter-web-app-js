@@ -9,6 +9,7 @@
  import './components/wind.js'
  import './components/temp.js'
  import './components/distance.js'
+ import './components/weight.js'
 
 
  /* DOCUMENT CONTAINERS */
@@ -21,6 +22,7 @@
  const wind = document.createElement('wind-component')
  const temp = document.createElement('temp-component')
  const distance = document.createElement('distance-component')
+ const weight = document.createElement('weight-component')
 
 
 
@@ -40,8 +42,8 @@
  navigation.addEventListener('convertDistance', () => {
   container.replaceChild(distance, container.firstChild)
  })
- navigation.addEventListener('convertWind', () => {
-  container.replaceChild(wind, container.firstChild)
+ navigation.addEventListener('convertWeight', () => {
+  container.replaceChild(weight, container.firstChild)
  })
  navigation.addEventListener('convertWind', () => {
   container.replaceChild(wind, container.firstChild)
