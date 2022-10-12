@@ -1,6 +1,5 @@
 /**
- * The wind web component module
- *
+ * The wind web component module.
  */
 
 const template = document.createElement('template')

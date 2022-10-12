@@ -8,6 +8,7 @@ template.innerHTML = `
    <style>
      #container {
       display: flex;
+      flex-direction: column;
       height: 80vh;
       align-items: center;
       justify-content: center;
@@ -17,11 +18,18 @@ template.innerHTML = `
       font-size: 2em;
       color: #107dac;
      }
+
+     p {
+      font-size: 1.6em;
+      color: #107dac;
+      width: 30%;
+     }
  
  
    </style>
    <div id="container">
    <h1>THE WIZARD &#129497</h1>
+   <p>The wizard helps you convert a selection of the most common units, select from the types above!</p>
    </div>
  `
 

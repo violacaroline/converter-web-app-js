@@ -8,11 +8,35 @@
  import './components/wizard.js'
  import './components/wind.js'
 
+ /* DOCUMENT CONTAINERS */
+ const header = document.querySelector('#header')
  const container = document.querySelector('#container')
+
+ /* COMPONENTS */
  const navigation = document.createElement('navigation-component')
- // const wizard = document.createElement('wizard-component')
+ const wizard = document.createElement('wizard-component')
  const wind = document.createElement('wind-component')
 
 
- container.appendChild(navigation)
- container.appendChild(wind)
+ header.appendChild(navigation)
+ container.appendChild(wizard)
+
+ /* LISTEN TO NAVIGATION EVENTS */
+ navigation.addEventListener('returnToHomePage', () => {
+  container.replaceChild(wizard, container.firstChild)
+ })
+ navigation.addEventListener('convertWind', () => {
+  container.replaceChild(wind, container.firstChild)
+ })
+ navigation.addEventListener('convertWind', () => {
+  container.replaceChild(wind, container.firstChild)
+ })
+ navigation.addEventListener('convertWind', () => {
+  container.replaceChild(wind, container.firstChild)
+ })
+ navigation.addEventListener('convertWind', () => {
+  container.replaceChild(wind, container.firstChild)
+ })
+ navigation.addEventListener('convertWind', () => {
+  container.replaceChild(wind, container.firstChild)
+ })
