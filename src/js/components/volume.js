@@ -13,6 +13,10 @@ import './result.js'
         justify-content: center;
        }
   
+       form {
+        text-align: center;
+      }
+
        h1 {
         font-size: 2em;
         color: #107dac;
@@ -39,9 +43,9 @@ import './result.js'
      }
    
      </style>
-     <div id="container">
-       <h1>Convert volume ...</h1>
+     <div id="container">       
        <form action="">
+        <h1>Convert volume ...</h1>
          <label for="input-from"></label>
          <input list="volume-values-from" id="input-from" type="text" placeholder="From" />
          <datalist id="volume-values-from">

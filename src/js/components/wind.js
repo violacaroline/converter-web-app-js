@@ -13,6 +13,10 @@ template.innerHTML = `
        align-items: center;
        justify-content: center;
       }
+
+      form {
+        text-align: center;
+      }
  
       h1 {
        font-size: 2em;
@@ -40,9 +44,9 @@ template.innerHTML = `
     }
   
     </style>
-    <div id="container">
+    <div id="container">      
+      <form action="">
       <h1>Convert wind ...</h1>
-      <form id="form-global" action="">
         <label for="input-from"></label>
         <input list="wind-values" id="input-from" type="text" placeholder="From" />
         <datalist id="wind-values">

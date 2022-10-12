@@ -2,8 +2,8 @@ import './result.js'
 /**
  * The distance web component module.
  */
- const template = document.createElement('template')
- template.innerHTML = `
+const template = document.createElement('template')
+template.innerHTML = `
      <style>
        #container {
         display: flex;
@@ -12,6 +12,10 @@ import './result.js'
         align-items: center;
         justify-content: center;
        }
+
+       form {
+        text-align: center;
+      }
   
        h1 {
         font-size: 2em;
@@ -39,9 +43,9 @@ import './result.js'
      }
    
      </style>
-     <div id="container">
-       <h1>Convert distance ...</h1>
+     <div id="container">       
        <form action="">
+        <h1>Convert distance ...</h1>
          <label for="input-from"></label>
          <input list="distance-values-from" id="input-from" type="text" placeholder="From" />
          <datalist id="distance-values-from">
@@ -59,35 +63,34 @@ import './result.js'
        <result-component></result-component>
      </div>
    `
- 
- customElements.define('distance-component',
-   /**
-    * Represents the distance element.
-    */
-   class extends HTMLElement {
-     #inputFrom
- 
-     #inputTo
- 
-     #convertBtn
- 
-     /**
-       * Creates an instance of the current type.
-       *
-       */
-     constructor() {
-       super()
- 
-       // Attach a shadow DOM tree to this element and
-       // append the template to the shadow root.
-       this.attachShadow({ mode: 'open' })
-         .appendChild(template.content.cloneNode(true))
- 
-       // Get necessary elements in shadowroot.
-       this.inputFrom = this.shadowRoot.querySelector('#input-from')
-       this.inputTo = this.shadowRoot.querySelector('#input-to')
-       this.#convertBtn = this.shadowRoot.querySelector('#convert-btn')
-     }
-   }
- )
- 
+
+customElements.define('distance-component',
+  /**
+   * Represents the distance element.
+   */
+  class extends HTMLElement {
+    #inputFrom
+
+    #inputTo
+
+    #convertBtn
+
+    /**
+      * Creates an instance of the current type.
+      *
+      */
+    constructor() {
+      super()
+
+      // Attach a shadow DOM tree to this element and
+      // append the template to the shadow root.
+      this.attachShadow({ mode: 'open' })
+        .appendChild(template.content.cloneNode(true))
+
+      // Get necessary elements in shadowroot.
+      this.inputFrom = this.shadowRoot.querySelector('#input-from')
+      this.inputTo = this.shadowRoot.querySelector('#input-to')
+      this.#convertBtn = this.shadowRoot.querySelector('#convert-btn')
+    }
+  }
+)
