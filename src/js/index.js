@@ -8,6 +8,8 @@
  import './components/wizard.js'
  import './components/wind.js'
  import './components/temp.js'
+ import './components/distance.js'
+
 
  /* DOCUMENT CONTAINERS */
  const header = document.querySelector('#header')
@@ -18,6 +20,7 @@
  const wizard = document.createElement('wizard-component')
  const wind = document.createElement('wind-component')
  const temp = document.createElement('temp-component')
+ const distance = document.createElement('distance-component')
 
 
 
@@ -34,8 +37,8 @@
  navigation.addEventListener('convertTemp', () => {
   container.replaceChild(temp, container.firstChild)
  })
- navigation.addEventListener('convertWind', () => {
-  container.replaceChild(wind, container.firstChild)
+ navigation.addEventListener('convertDistance', () => {
+  container.replaceChild(distance, container.firstChild)
  })
  navigation.addEventListener('convertWind', () => {
   container.replaceChild(wind, container.firstChild)
