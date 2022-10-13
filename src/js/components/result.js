@@ -4,7 +4,7 @@
 const template = document.createElement('template')
 template.innerHTML = `
      <style>
-       #container {
+       /* #container {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -16,11 +16,10 @@ template.innerHTML = `
 
        h2 {
         color: #107dac;
-       }
+       } */
      </style>
-     <div id="container">
-      <h2 id="result">Result goes here</h2>
-     </div>
+      <h4>Converted Value:</h4><p id="result"></p>
+
    `
 
 customElements.define('result-component',
@@ -47,6 +46,15 @@ customElements.define('result-component',
 
       // Get necessary elements in shadowroot.
       this.#result = this.shadowRoot.querySelector('#result')
+     }
+
+     /**
+      * Called when inserted in the DOM.
+      */
+     connectedCallback() {
+      if (this.getAttribute('result')) {
+        this.#result.textContent = this.getAttribute('result')
+      }
      }
   }
 )

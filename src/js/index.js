@@ -11,6 +11,7 @@
  import './components/distance.js'
  import './components/weight.js'
  import './components/volume.js'
+ import './components/result.js'
 
  /* DOCUMENT CONTAINERS */
  const header = document.querySelector('#header')
@@ -24,7 +25,7 @@
  const distance = document.createElement('distance-component')
  const weight = document.createElement('weight-component')
  const volume = document.createElement('volume-component')
-
+ const result = document.createElement('result-component')
 
  header.appendChild(navigation)
  container.appendChild(wizard)
@@ -47,4 +48,12 @@
  })
  navigation.addEventListener('convertVolume', () => {
   container.replaceChild(volume, container.firstChild)
+ })
+
+ /* LISTEN TO CONVERT EVENTS */
+ wind.addEventListener('convert', (event) => {
+  result.setAttribute('result', event.detail)
+  container.appendChild(result)
+  console.log('The detail: ', event.detail)
+  // result.textContent = event.detail
  })

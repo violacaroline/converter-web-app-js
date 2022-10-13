@@ -10,7 +10,6 @@ template.innerHTML = `
       #container {
        display: flex;
        flex-direction: column;
-       height: 80vh;
        align-items: center;
        justify-content: center;
       }
@@ -29,7 +28,7 @@ template.innerHTML = `
         margin: 10%;
         padding: 5%;
       }
-      
+
       button {
       background-color: #107dac;
       color: white;
@@ -48,29 +47,21 @@ template.innerHTML = `
     <div id="container">      
       <form action="">
       <h1>Convert wind ...</h1>
-        <label for="input-value"></label>
+        <label for="input-value">Value</label>
         <input id="input-value" type="text" placeholder="Value" />
-        <label for="input-from"></label>
+        <label for="input-from">From</label>
         <input list="wind-values" id="input-from" type="text" placeholder="From" />
         <datalist id="wind-values">
           <option value="Kilometer per hour">
-          <option value="Meter per Second">
+          <option value="Meter per second">
           <option value="Feet per second">
           <option value="Miles per hour">
           <option value="Knots">
         </datalist>
-        <label for="input-to"></label>
-        <input list="wind-values" id="input-to" type="text" placeholder="To"/>
-        <datalist id="wind-values">
-          <option value="Kilometer per hour">
-          <option value="Meter per Second">
-          <option value="Feet per second">
-          <option value="Miles per hour">
-          <option value="Knots">
-        </datalist>
+        <label for="input-to">To</label>
+        <input list="wind-values" id="input-to" type="text" placeholder="To"/>      
         <button id="convert-btn">Convert!</button>
       </form>
-      <result-component id="result"></result-component>
     </div>
   `
 
@@ -88,6 +79,8 @@ customElements.define('wind-component',
     #inputTo
 
     #convertBtn
+
+    #result
 
     #wizard = new Wizard()
 
@@ -120,21 +113,47 @@ customElements.define('wind-component',
       this.#convertBtn.addEventListener('click', (event) => {
         event.preventDefault()
         console.log('Clicked the convert button')
-        console.log('From', this.#container.querySelector('#input-from').value)
-        console.log('To', this.#container.querySelector('#input-to').value)
+
+        console.log('From', this.formatUnitType(this.#container.querySelector('#input-from').value))
+        console.log('To', this.formatUnitType(this.#container.querySelector('#input-to').value))
         console.log('Value', this.#container.querySelector('#input-value').value)
 
-        // const convert = new window.CustomEvent('convert')
-        // this.dispatchEvent(convert)
-      
-        // const options = {
-        //   fromUnit: this.#inputFrom.value,
-        //   toUnit: this.#inputTo.value,
-        //   value: this.#inputValue.value
-        // }
+        const options = {
+          fromUnit: this.formatUnitType(this.#container.querySelector('#input-from').value),
+          toUnit: this.formatUnitType(this.#container.querySelector('#input-to').value),
+          value: this.#container.querySelector('#input-value').value
+        }
 
-        // console.log('Result: ', wizard.convertWind(options))
+        console.log('Result: ', this.#wizard.convertWind(options))
+
+        const convert = new window.CustomEvent('convert', {
+          detail: this.#wizard.convertWind(options)
+        })
+        this.dispatchEvent(convert)
       })
+    }
+
+    /**
+     * Format the user input to the correct.
+     *
+     * @param {string} unitTypeText - The type of unit in text format.
+     * @return {string} - The unit in the option format for wizard. 
+     */
+    formatUnitType (unitTypeText) {
+      switch (unitTypeText) {
+        case 'Kilometer per hour':
+          return 'kmh'
+        case 'Meter per second':
+          return 'ms'
+        case 'Feet per second':
+          return 'fts'
+        case 'Miles per hour':
+          return 'mph'
+        case 'Knots':
+          return 'knots'
+        default:
+          return ''
+      }
     }
   }
 )
