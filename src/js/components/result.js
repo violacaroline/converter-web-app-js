@@ -4,22 +4,14 @@
 const template = document.createElement('template')
 template.innerHTML = `
      <style>
-       /* #container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin: 20px;
-        height: 100px;
-        width: 100px;
-       }
-
-       h2 {
+       #container {
         color: #107dac;
-       } */
+        text-align: center;
+       }
      </style>
-      <h4>Converted Value:</h4><p id="result"></p>
-
+     <div id="container">
+      <h3>Converted Value:</h3><h4 id="result"></h4>
+     </div>
    `
 
 customElements.define('result-component',
@@ -56,5 +48,6 @@ customElements.define('result-component',
         this.#result.textContent = this.getAttribute('result')
       }
      }
+     
   }
 )

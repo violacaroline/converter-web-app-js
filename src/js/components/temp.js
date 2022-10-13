@@ -1,4 +1,6 @@
 import './result.js'
+import Wizard from '@violacaroline/wizard'
+
 /**
  * The temperature web component module.
  */
@@ -9,7 +11,6 @@ template.innerHTML = `
        #container {
         display: flex;
         flex-direction: column;
-        height: 80vh;
         align-items: center;
         justify-content: center;
        }
@@ -23,11 +24,11 @@ template.innerHTML = `
         color: #107dac;
        }
  
-       input {
-         display: block;
-         margin: 10%;
-         padding: 5%;
-       }
+       select {
+        display: block;
+        margin: 5%;
+        padding: 2%;
+      }
        
        button {
        background-color: #107dac;
@@ -49,21 +50,18 @@ template.innerHTML = `
         <h1>Convert Temperature...</h1>
          <label for="input-value"></label>
          <input id="input-value" type="text" placeholder="Value" />
-         <label for="input-from"></label>
-         <input list="temp-values" id="input-from" type="text" placeholder="From" />
-         <datalist id="temp-values">
-           <option value="Fahrenheit">
-           <option value="Celsius">
-         </datalist>
-         <label for="input-to"></label>
-         <input list="wind-values" id="input-to" type="text" placeholder="To"/>
-         <datalist id="wind-values">
-           <option value="Fahrenheit">
-           <option value="Celsius">
-         </datalist>
+         <select name="units" id="unit-select-from">
+            <option value="">--Please choose a unit to convert FROM--</option>
+            <option value="fahrenheit">Fahrenheit</option>
+            <option value="celsius">Celsius</option>
+        </select>
+        <select name="units" id="unit-select-to">
+            <option value="">----Please choose a unit to convert TO----</option>
+            <option value="fahrenheit">Fahrenheit</option>
+            <option value="celsius">Celsius</option>
+        </select>
          <button id="convert-btn">Convert!</button>
        </form>
-       <result-component></result-component>
      </div>
    `
 
@@ -72,13 +70,20 @@ customElements.define('temp-component',
    * Represents the temp element.
    */
   class extends HTMLElement {
-    #inputValue
+    /**
+     * The container element holding all other elements.
+     */
+     #container
 
-    #inputFrom
-
-    #inputTo
-
+    /**
+     * The button to press to convert.
+     */
     #convertBtn
+
+    /**
+     * The wizard doing the conversion.
+     */
+     #wizard = new Wizard()
 
     /**
       * Creates an instance of the current type.
@@ -93,10 +98,30 @@ customElements.define('temp-component',
         .appendChild(template.content.cloneNode(true))
 
       // Get necessary elements in shadowroot.
-      this.#inputValue = this.shadowRoot.querySelector('#input-value')
-      this.#inputFrom = this.shadowRoot.querySelector('#input-from')
-      this.#inputTo = this.shadowRoot.querySelector('#input-to')
+      this.#container = this.shadowRoot.querySelector('#container')
       this.#convertBtn = this.shadowRoot.querySelector('#convert-btn')
+    }
+
+    /**
+      * Called when element is inserted to the DOM.
+      *
+      */
+     connectedCallback () {
+
+      this.#convertBtn.addEventListener('click', (event) => {
+        event.preventDefault()
+        console.log('Clicked the convert button')
+
+        const options = {
+          fromUnit: this.#container.querySelector('#unit-select-from').value,
+          value: this.#container.querySelector('#input-value').value
+        }
+
+        const convert = new window.CustomEvent('convert', {
+          detail: this.#wizard.convertTemperature(options)
+        })
+        this.dispatchEvent(convert)
+      })
     }
   }
 )

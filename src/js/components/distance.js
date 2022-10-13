@@ -22,11 +22,11 @@ template.innerHTML = `
         color: #107dac;
        }
  
-       input {
-         display: block;
-         margin: 10%;
-         padding: 5%;
-       }
+       select {
+        display: block;
+        margin: 5%;
+        padding: 2%;
+      }
        
        button {
        background-color: #107dac;

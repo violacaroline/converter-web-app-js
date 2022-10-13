@@ -32,28 +32,36 @@
 
  /* LISTEN TO NAVIGATION EVENTS */
  navigation.addEventListener('returnToHomePage', () => {
-  container.replaceChild(wizard, container.firstChild)
+  container.replaceChildren(wizard)
  })
  navigation.addEventListener('convertWind', () => {
-  container.replaceChild(wind, container.firstChild)
+  container.replaceChildren(wind)
+
  })
  navigation.addEventListener('convertTemp', () => {
-  container.replaceChild(temp, container.firstChild)
+  container.replaceChildren(temp)
+
  })
  navigation.addEventListener('convertDistance', () => {
-  container.replaceChild(distance, container.firstChild)
+  container.replaceChildren(distance)
+
  })
  navigation.addEventListener('convertWeight', () => {
-  container.replaceChild(weight, container.firstChild)
+  container.replaceChildren(weight)
+
  })
  navigation.addEventListener('convertVolume', () => {
-  container.replaceChild(volume, container.firstChild)
+  container.replaceChildren(volume)
+
  })
 
  /* LISTEN TO CONVERT EVENTS */
  wind.addEventListener('convert', (event) => {
   result.setAttribute('result', event.detail)
   container.appendChild(result)
-  console.log('The detail: ', event.detail)
-  // result.textContent = event.detail
+ })
+
+ temp.addEventListener('convert', (event) => {
+  result.setAttribute('result', event.detail)
+  container.appendChild(result)
  })
