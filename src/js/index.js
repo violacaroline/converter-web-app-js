@@ -84,7 +84,7 @@ volume.addEventListener('convert', (event) => {
 })
 
 /**
-  * Validate event object, display error element if null.
+  * Validate that event.detail contains converted value, display error element if null.
   */
 function validateEventObject (eventObject, result, error) {
   if (eventObject.detail) {

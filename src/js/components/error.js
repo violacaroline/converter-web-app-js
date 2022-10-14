@@ -10,7 +10,7 @@ template.innerHTML = `
         }
       </style>
       <div id="error">
-       <h3>Sorry, an error has occurred. Did you fill out all options above?</h3>
+       <h3>Sorry, an error has occurred. Did you fill out the options correctly above?</h3>
       </div>
     `
 
