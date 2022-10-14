@@ -113,7 +113,6 @@ customElements.define('navigation-component',
        * User clicking on Wizard header, return to home page.
        */
       this.#wizardHeader.addEventListener('click', () => {
-        console.log('Clicked the wizard')
         const returnToHomePage = new window.CustomEvent('returnToHomePage')
         this.dispatchEvent(returnToHomePage)
       })
@@ -122,27 +121,22 @@ customElements.define('navigation-component',
        * User choosing type of conversion events.
        */
       this.#windButton.addEventListener('click', () => {
-        console.log('Clicked the wind button')
         const convertWind = new window.CustomEvent('convertWind')
         this.dispatchEvent(convertWind)
       })
       this.#tempButton.addEventListener('click', () => {
-        console.log('Clicked the temp button')
         const convertTemp = new window.CustomEvent('convertTemp')
         this.dispatchEvent(convertTemp)
       })
       this.#distanceButton.addEventListener('click', () => {
-        console.log('Clicked the distance button')
         const convertDistance = new window.CustomEvent('convertDistance')
         this.dispatchEvent(convertDistance)
       })
       this.#weightButton.addEventListener('click', () => {
-        console.log('Clicked the weight button')
         const convertWeight = new window.CustomEvent('convertWeight')
         this.dispatchEvent(convertWeight)
       })
       this.#volumeButton.addEventListener('click', () => {
-        console.log('Clicked the volume button')
         const convertvolume = new window.CustomEvent('convertVolume')
         this.dispatchEvent(convertvolume)
       })      

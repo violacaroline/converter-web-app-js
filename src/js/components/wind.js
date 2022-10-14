@@ -1,9 +1,9 @@
 import './result.js'
 import Wizard from '@violacaroline/wizard'
+
 /**
  * The wind web component module.
  */
-
 const template = document.createElement('template')
 template.innerHTML = `
     <style>
@@ -37,7 +37,6 @@ template.innerHTML = `
         padding: 2%;
         text-align: center;
       }
-
 
       button {
       background-color: #107dac;
@@ -124,7 +123,7 @@ customElements.define('wind-component',
 
       this.#convertBtn.addEventListener('click', (event) => {
         event.preventDefault()
-        console.log('Clicked the convert button')
+        this.removeAttribute('result')
 
         const options = {
           fromUnit: this.#container.querySelector('#unit-select-from').value,

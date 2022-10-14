@@ -47,7 +47,6 @@ customElements.define('result-component',
       if (this.getAttribute('result')) {
         this.#result.textContent = this.getAttribute('result')
       }
-     }
-     
+     } 
   }
 )

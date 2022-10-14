@@ -4,7 +4,6 @@ import Wizard from '@violacaroline/wizard'
 /**
  * The temperature web component module.
  */
-
 const template = document.createElement('template')
 template.innerHTML = `
      <style>
@@ -25,9 +24,18 @@ template.innerHTML = `
        }
  
        select {
+        width: 280px;
         display: block;
         margin: 5%;
         padding: 2%;
+        text-align: center;
+      }
+
+      input {
+        display: block;
+        margin: 5% auto;
+        padding: 2%;
+        text-align: center;
       }
        
        button {
@@ -56,7 +64,7 @@ template.innerHTML = `
             <option value="celsius">Celsius</option>
         </select>
         <select name="units" id="unit-select-to">
-            <option value="">----Please choose a unit to convert TO----</option>
+            <option value="">--Please choose a unit to convert TO--</option>
             <option value="fahrenheit">Fahrenheit</option>
             <option value="celsius">Celsius</option>
         </select>
@@ -110,7 +118,6 @@ customElements.define('temp-component',
 
       this.#convertBtn.addEventListener('click', (event) => {
         event.preventDefault()
-        console.log('Clicked the convert button')
 
         const options = {
           fromUnit: this.#container.querySelector('#unit-select-from').value,

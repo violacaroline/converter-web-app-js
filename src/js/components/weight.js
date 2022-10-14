@@ -1,4 +1,6 @@
 import './result.js'
+import Wizard from '@violacaroline/wizard'
+
 /**
  * The weight web component module.
  */
@@ -8,7 +10,6 @@ import './result.js'
        #container {
         display: flex;
         flex-direction: column;
-        height: 80vh;
         align-items: center;
         justify-content: center;
        }
@@ -23,9 +24,18 @@ import './result.js'
        }
  
        select {
+        width: 280px;
         display: block;
         margin: 5%;
         padding: 2%;
+        text-align: center;
+      }
+
+      input {
+        display: block;
+        margin: 5% auto;
+        padding: 2%;
+        text-align: center;
       }
        
        button {
@@ -46,23 +56,19 @@ import './result.js'
      <div id="container">       
        <form action="">
         <h1>Convert weight ...</h1>
-         <label for="input-value"></label>
          <input id="input-value" type="text" placeholder="Value" />
-         <label for="input-from"></label>
-         <input list="weight-values-from" id="input-from" type="text" placeholder="From" />
-         <datalist id="weight-values-from">
-           <option value="Ounces">
-           <option value="Pounds">
-         </datalist>
-         <label for="input-to"></label>
-         <input list="weight-values-to" id="input-to" type="text" placeholder="To"/>
-         <datalist id="weight-values-to">
-           <option value="Grams">
-           <option value="Kilograms">
-         </datalist>
+         <select name="units" id="unit-select-from">
+            <option value="">--Please choose a unit to convert FROM--</option>
+            <option value="ounces">Ounces</option>
+            <option value="pounds">Pounds</option>
+        </select>
+        <select name="units" id="unit-select-to">
+            <option value="">--Please choose a unit to convert TO--</option>
+            <option value="grams">Grams</option>
+            <option value="kilograms">Kilograms</option>
+        </select>
          <button id="convert-btn">Convert!</button>
        </form>
-       <result-component></result-component>
      </div>
    `
  
@@ -71,13 +77,20 @@ import './result.js'
     * Represents the weight element.
     */
    class extends HTMLElement {
-     #inputValue
+    /**
+     * The container element holding all other elements.
+     */
+     #container
 
-     #inputFrom
- 
-     #inputTo
- 
+     /**
+      * The button to press to convert.
+      */
      #convertBtn
+ 
+     /**
+      * The wizard doing the conversion.
+      */
+     #wizard = new Wizard()
  
      /**
        * Creates an instance of the current type.
@@ -92,11 +105,31 @@ import './result.js'
          .appendChild(template.content.cloneNode(true))
  
        // Get necessary elements in shadowroot.
-       this.#inputValue = this.shadowRoot.querySelector('#input-value')
-       this.#inputFrom = this.shadowRoot.querySelector('#input-from')
-       this.#inputTo = this.shadowRoot.querySelector('#input-to')
+       this.#container = this.shadowRoot.querySelector('#container')
        this.#convertBtn = this.shadowRoot.querySelector('#convert-btn')
      }
+
+     /**
+      * Called when element is inserted to the DOM.
+      *
+      */
+    connectedCallback () {
+
+      this.#convertBtn.addEventListener('click', (event) => {
+        event.preventDefault()
+
+        const options = {
+          fromUnit: this.#container.querySelector('#unit-select-from').value,
+          toUnit: this.#container.querySelector('#unit-select-to').value,
+          value: this.#container.querySelector('#input-value').value
+        }
+
+        const convert = new window.CustomEvent('convert', {
+          detail: this.#wizard.convertWeight(options)
+        })
+        this.dispatchEvent(convert)
+      })
+    }
    }
  )
  

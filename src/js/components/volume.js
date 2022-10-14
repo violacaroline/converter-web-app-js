@@ -1,14 +1,15 @@
 import './result.js'
+import Wizard from '@violacaroline/wizard'
+
 /**
  * The volume web component module.
  */
- const template = document.createElement('template')
- template.innerHTML = `
+const template = document.createElement('template')
+template.innerHTML = `
      <style>
        #container {
         display: flex;
         flex-direction: column;
-        height: 80vh;
         align-items: center;
         justify-content: center;
        }
@@ -23,9 +24,18 @@ import './result.js'
        }
  
        select {
+        width: 280px;
         display: block;
         margin: 5%;
         padding: 2%;
+        text-align: center;
+      }
+
+      input {
+        display: block;
+        margin: 5% auto;
+        padding: 2%;
+        text-align: center;
       }
        
        button {
@@ -46,56 +56,77 @@ import './result.js'
      <div id="container">       
        <form action="">
         <h1>Convert volume ...</h1>
-         <label for="input-value"></label>
          <input id="input-value" type="text" placeholder="Value" />
-         <label for="input-from"></label>
-         <input list="volume-values-from" id="input-from" type="text" placeholder="From" />
-         <datalist id="volume-values-from">
-           <option value="Pints">
-           <option value="Gallons">
-         </datalist>
-         <label for="input-to"></label>
-         <input list="volume-values-to" id="input-to" type="text" placeholder="To"/>
-         <datalist id="volume-values-to">
-           <option value="Litres">
-         </datalist>
+         <select name="units" id="unit-select-from">
+            <option value="">--Please choose a unit to convert FROM--</option>
+            <option value="pints">Pints</option>
+            <option value="gallons">Gallons</option>
+        </select>
+        <select name="units" id="unit-select-to">
+            <option value="">--Please choose a unit to convert TO--</option>
+            <option value="litres">Litres</option>
+        </select>
          <button id="convert-btn">Convert!</button>
        </form>
-       <result-component></result-component>
      </div>
    `
- 
- customElements.define('volume-component',
-   /**
-    * Represents the volume element.
-    */
-   class extends HTMLElement {
-     #inputValue
 
-     #inputFrom
- 
-     #inputTo
- 
-     #convertBtn
- 
-     /**
-       * Creates an instance of the current type.
-       *
-       */
-     constructor() {
-       super()
- 
-       // Attach a shadow DOM tree to this element and
-       // append the template to the shadow root.
-       this.attachShadow({ mode: 'open' })
-         .appendChild(template.content.cloneNode(true))
- 
-       // Get necessary elements in shadowroot.
-       this.#inputValue = this.shadowRoot.querySelector('#input-value')
-       this.#inputFrom = this.shadowRoot.querySelector('#input-from')
-       this.#inputTo = this.shadowRoot.querySelector('#input-to')
-       this.#convertBtn = this.shadowRoot.querySelector('#convert-btn')
-     }
-   }
- )
- 
+customElements.define('volume-component',
+  /**
+   * Represents the volume element.
+   */
+  class extends HTMLElement {
+    /**
+     * The container element holding all other elements.
+     */
+    #container
+
+    /**
+     * The button to press to convert.
+     */
+    #convertBtn
+
+    /**
+     * The wizard doing the conversion.
+     */
+    #wizard = new Wizard()
+
+    /**
+      * Creates an instance of the current type.
+      *
+      */
+    constructor() {
+      super()
+
+      // Attach a shadow DOM tree to this element and
+      // append the template to the shadow root.
+      this.attachShadow({ mode: 'open' })
+        .appendChild(template.content.cloneNode(true))
+
+      // Get necessary elements in shadowroot.
+      this.#container = this.shadowRoot.querySelector('#container')
+      this.#convertBtn = this.shadowRoot.querySelector('#convert-btn')
+    }
+
+    /**
+     * Called when element is inserted to the DOM.
+     *
+     */
+    connectedCallback () {
+
+      this.#convertBtn.addEventListener('click', (event) => {
+        event.preventDefault()
+  
+        const options = {
+          fromUnit: this.#container.querySelector('#unit-select-from').value,
+          value: this.#container.querySelector('#input-value').value
+        }
+
+        const convert = new window.CustomEvent('convert', {
+          detail: this.#wizard.convertVolume(options)
+        })
+        this.dispatchEvent(convert)
+      })
+    }
+  }
+)
