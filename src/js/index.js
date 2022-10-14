@@ -60,32 +60,26 @@ navigation.addEventListener('convertVolume', () => {
 /* LISTEN TO CONVERT EVENTS */
 wind.addEventListener('convert', (event) => {
   resultExists()
-
   validateEventObject(event, result, error)
 })
 
 temp.addEventListener('convert', (event) => {
   resultExists()
-
   validateEventObject(event, result, error)
 })
 
 distance.addEventListener('convert', (event) => {
   resultExists()
-
   validateEventObject(event, result, error)
 })
 
 weight.addEventListener('convert', (event) => {
   resultExists()
-
-
   validateEventObject(event, result, error)
 })
 
 volume.addEventListener('convert', (event) => {
   resultExists()
-
   validateEventObject(event, result, error)
 })
 
