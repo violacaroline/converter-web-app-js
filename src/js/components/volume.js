@@ -56,15 +56,16 @@ template.innerHTML = `
      <div id="container">       
        <form action="">
         <h1>Convert volume ...</h1>
+        <p>Value will be converted to litres only</p>
          <input id="input-value" type="text" placeholder="Value" />
          <select name="units" id="unit-select-from">
             <option value="">--Please choose a unit to convert FROM--</option>
             <option value="pints">Pints</option>
             <option value="gallons">Gallons</option>
         </select>
-        <select name="units" id="unit-select-to">
+        <select disabled name="units" id="unit-select-to">
             <option value="">--Please choose a unit to convert TO--</option>
-            <option value="litres">Litres</option>
+            <option selected value="litres">Litres</option>
         </select>
          <button id="convert-btn">Convert!</button>
        </form>
@@ -116,17 +117,32 @@ customElements.define('volume-component',
 
       this.#convertBtn.addEventListener('click', (event) => {
         event.preventDefault()
-  
+
         const options = {
           fromUnit: this.#container.querySelector('#unit-select-from').value,
           value: this.#container.querySelector('#input-value').value
         }
 
-        const convert = new window.CustomEvent('convert', {
-          detail: this.#wizard.convertVolume(options)
-        })
-        this.dispatchEvent(convert)
+        try {
+          const convert = new window.CustomEvent('convert', {
+            detail: this.#wizard.convertVolume(options)
+          })
+          this.dispatchEvent(convert)
+        } catch (error) {
+          const conversionError = new window.CustomEvent('conversion-error', {
+            detail: error.message
+          })
+          this.dispatchEvent(conversionError)
+        }       
       })
+    }
+
+    /**
+     * Called when element is removed from the DOM.
+     */
+    disconnectedCallback () {
+      this.#container.querySelector('#unit-select-from').value = ''
+      this.#container.querySelector('#input-value').value = ''
     }
   }
 )

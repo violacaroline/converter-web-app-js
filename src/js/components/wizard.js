@@ -9,7 +9,6 @@ template.innerHTML = `
      #container {
       display: flex;
       flex-direction: column;
-      height: 80vh;
       align-items: center;
       justify-content: center;
      }
@@ -51,9 +50,6 @@ customElements.define('wizard-component',
       // append the template to the shadow root.
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
-
-      // Get necessary elements in shadowroot.
-      // REMOVE WHEN CREATED NEW ONES - this.inputField = this.shadowRoot.querySelector('#input-name')
 
     }
   }

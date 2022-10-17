@@ -4,12 +4,12 @@
 const template = document.createElement('template')
 template.innerHTML = `
      <style>
-       #container {
+       #result-container {
         color: #107dac;
         text-align: center;
        }
      </style>
-     <div id="container">
+     <div id="result-container">
       <h3>Converted Value:</h3><h4 id="result"></h4>
      </div>
    `
@@ -38,15 +38,24 @@ customElements.define('result-component',
 
       // Get necessary elements in shadowroot.
       this.#result = this.shadowRoot.querySelector('#result')
-     }
+    }
 
-     /**
-      * Called when inserted in the DOM.
-      */
-     connectedCallback() {
+    /**
+     * Called when inserted in the DOM.
+     */
+    connectedCallback () {
       if (this.getAttribute('result')) {
         this.#result.textContent = this.getAttribute('result')
       }
-     } 
+    }
+
+    /**
+     * Called when inserted in the DOM.
+     */
+    disconnectedCallback () {
+      if (this.getAttribute('result')) {
+        this.#result.textContent = this.getAttribute('result')
+      }
+    }
   }
 )

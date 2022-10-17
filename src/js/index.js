@@ -57,58 +57,90 @@ navigation.addEventListener('convertVolume', () => {
   container.replaceChildren(volume)
 })
 
-/* LISTEN TO CONVERT EVENTS */
+/* LISTEN TO CONVERT EVENTS/ERRORS */
+
+/* --- WIND --- */
 wind.addEventListener('convert', (event) => {
-  resultExists()
-  validateEventObject(event, result, error)
+  removeOldErrorElement()
+  removeOldResultElement()
+  displayResult(event, result)
+})
+wind.addEventListener('conversion-error', (event) => {
+  removeOldResultElement()
+  error.setAttribute('error-message', event.detail)
+  container.appendChild(error)
 })
 
+/* --- TEMPERATURE --- */
 temp.addEventListener('convert', (event) => {
-  resultExists()
-  validateEventObject(event, result, error)
+  removeOldErrorElement()
+  removeOldResultElement()
+  displayResult(event, result)
+})
+temp.addEventListener('conversion-error', (event) => {
+  removeOldResultElement()
+  error.setAttribute('error-message', event.detail)
+  container.appendChild(error)
 })
 
+/* --- DISTANCE --- */
 distance.addEventListener('convert', (event) => {
-  resultExists()
-  validateEventObject(event, result, error)
+  removeOldErrorElement()
+  removeOldResultElement()
+  displayResult(event, result)
+})
+distance.addEventListener('conversion-error', (event) => {
+  removeOldResultElement()
+  error.setAttribute('error-message', event.detail)
+  container.appendChild(error)
 })
 
+/* --- WEIGHT --- */
 weight.addEventListener('convert', (event) => {
-  resultExists()
-  validateEventObject(event, result, error)
+  removeOldErrorElement()
+  removeOldResultElement()
+  displayResult(event, result)
+})
+weight.addEventListener('conversion-error', (event) => {
+  removeOldResultElement()
+  error.setAttribute('error-message', event.detail)
+  container.appendChild(error)
 })
 
+/* --- VOLUME --- */
 volume.addEventListener('convert', (event) => {
-  resultExists()
-  validateEventObject(event, result, error)
+  removeOldErrorElement()
+  removeOldResultElement()
+  displayResult(event, result)
+})
+volume.addEventListener('conversion-error', (event) => {
+  removeOldResultElement()
+  error.setAttribute('error-message', event.detail)
+  container.appendChild(error)
 })
 
 /**
-  * Validate that event.detail contains converted value, display error element if null.
+  * Display result.
   */
-function validateEventObject (eventObject, result, error) {
-  if (eventObject.detail) {
-    if (container.querySelector('#error')) {
-      error.remove()
-      result.setAttribute('id', 'result')
-      result.setAttribute('result', eventObject.detail)
-      container.appendChild(result)
-    }
-    result.setAttribute('result', eventObject.detail)
-    container.appendChild(result)
-  } else {
-    container.appendChild(error)
-    error.setAttribute('id', 'error')
-  }
+function displayResult (eventObject, result) {
+  result.setAttribute('result', eventObject.detail)
+  container.appendChild(result)
 }
 
 /**
-  * Check if result element already exists.
-  */
- function resultExists () {
-  if (container.querySelector('#result')) {
+ * If old result exists, remove it.
+ */
+function removeOldResultElement () {
+  if (container.contains(result)) {
     result.remove()
   }
 }
 
-
+/**
+ * If old error exists, remove it.
+ */
+function removeOldErrorElement () {
+  if (container.contains(error)) {
+    error.remove()
+  }
+}

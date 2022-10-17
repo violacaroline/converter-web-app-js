@@ -10,7 +10,7 @@ template.innerHTML = `
         }
       </style>
       <div id="error">
-       <h3>Sorry, an error has occurred. Did you fill out the options correctly above?</h3>
+       <h3 id="error-message">Sorry, an error has occurred. Did you fill out the options correctly above?</h3>
       </div>
     `
 
@@ -19,6 +19,8 @@ customElements.define('error-component',
    * Represents the error element.
    */
   class extends HTMLElement {
+    #errorMessage
+
     /**
       * Creates an instance of the current type.
       *
@@ -30,6 +32,25 @@ customElements.define('error-component',
       // append the template to the shadow root.
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
+
+      // Get necessary elements in shadowroot.
+      this.#errorMessage = this.shadowRoot.querySelector('#error-message')
+    }
+
+    /**
+     * Called when inserted in the DOM.
+     */
+    connectedCallback () {
+      if (this.getAttribute('error-message')) {
+        this.#errorMessage.textContent = this.getAttribute('error-message')
+      }
+    }
+
+    /**
+     * Called when removed from the DOM.
+     */
+    disconnectedCallback () {
+      this.#errorMessage.textContent = ''
     }
   }
 )

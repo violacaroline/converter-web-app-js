@@ -8,9 +8,9 @@ The Wizard application is a converter that will convert some of the most common 
 
 ### UC1 User returns to home page
 
-Precondition: User is located on either of the unit-pages
+Precondition: User is located on either of the unit-pages (wind, temperature, distance, weight, volume)
 
-Postcondition: User is returned to home page.
+Postcondition: User is returned to "home" page (with "The Wizard" and a brief introduction to the application).
 
 1. User presses "The Wizard" header in navigation bar
 2. User is returned to home page where The Wizard and a brief application introduction is displayed.

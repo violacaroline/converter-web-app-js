@@ -56,15 +56,11 @@ template.innerHTML = `
      <div id="container">       
        <form action="">
         <h1>Convert Temperature...</h1>
+        <p>Value will be converted between celsius/fahrenheit only</p>
          <label for="input-value"></label>
          <input id="input-value" type="text" placeholder="Value" />
          <select name="units" id="unit-select-from">
             <option value="">--Please choose a unit to convert FROM--</option>
-            <option value="fahrenheit">Fahrenheit</option>
-            <option value="celsius">Celsius</option>
-        </select>
-        <select name="units" id="unit-select-to">
-            <option value="">--Please choose a unit to convert TO--</option>
             <option value="fahrenheit">Fahrenheit</option>
             <option value="celsius">Celsius</option>
         </select>
@@ -78,20 +74,10 @@ customElements.define('temp-component',
    * Represents the temp element.
    */
   class extends HTMLElement {
-    /**
-     * The container element holding all other elements.
-     */
-     #container
-
-    /**
-     * The button to press to convert.
-     */
+    #container
     #convertBtn
 
-    /**
-     * The wizard doing the conversion.
-     */
-     #wizard = new Wizard()
+    #wizard = new Wizard()
 
     /**
       * Creates an instance of the current type.
@@ -114,8 +100,7 @@ customElements.define('temp-component',
       * Called when element is inserted to the DOM.
       *
       */
-     connectedCallback () {
-
+    connectedCallback () {
       this.#convertBtn.addEventListener('click', (event) => {
         event.preventDefault()
 
@@ -124,11 +109,26 @@ customElements.define('temp-component',
           value: this.#container.querySelector('#input-value').value
         }
 
-        const convert = new window.CustomEvent('convert', {
-          detail: this.#wizard.convertTemperature(options)
-        })
-        this.dispatchEvent(convert)
+        try {
+          const convert = new window.CustomEvent('convert', {
+            detail: this.#wizard.convertTemperature(options)
+          })
+          this.dispatchEvent(convert)
+        } catch (error) {
+          const conversionError = new window.CustomEvent('conversion-error', {
+            detail: error.message
+          })
+          this.dispatchEvent(conversionError)
+        }
       })
+    }
+
+    /**
+     * Called when element is removed from the DOM.
+     */
+    disconnectedCallback () {
+      this.#container.querySelector('#unit-select-from').value = ''
+      this.#container.querySelector('#input-value').value = ''
     }
   }
 )

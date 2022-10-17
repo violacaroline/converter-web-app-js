@@ -4,8 +4,8 @@ import Wizard from '@violacaroline/wizard'
 /**
  * The weight web component module.
  */
- const template = document.createElement('template')
- template.innerHTML = `
+const template = document.createElement('template')
+template.innerHTML = `
      <style>
        #container {
         display: flex;
@@ -71,48 +71,48 @@ import Wizard from '@violacaroline/wizard'
        </form>
      </div>
    `
- 
- customElements.define('weight-component',
-   /**
-    * Represents the weight element.
-    */
-   class extends HTMLElement {
+
+customElements.define('weight-component',
+  /**
+   * Represents the weight element.
+   */
+  class extends HTMLElement {
     /**
      * The container element holding all other elements.
      */
-     #container
+    #container
 
-     /**
-      * The button to press to convert.
-      */
-     #convertBtn
- 
-     /**
-      * The wizard doing the conversion.
-      */
-     #wizard = new Wizard()
- 
-     /**
-       * Creates an instance of the current type.
-       *
-       */
-     constructor() {
-       super()
- 
-       // Attach a shadow DOM tree to this element and
-       // append the template to the shadow root.
-       this.attachShadow({ mode: 'open' })
-         .appendChild(template.content.cloneNode(true))
- 
-       // Get necessary elements in shadowroot.
-       this.#container = this.shadowRoot.querySelector('#container')
-       this.#convertBtn = this.shadowRoot.querySelector('#convert-btn')
-     }
+    /**
+     * The button to press to convert.
+     */
+    #convertBtn
 
-     /**
-      * Called when element is inserted to the DOM.
+    /**
+     * The wizard doing the conversion.
+     */
+    #wizard = new Wizard()
+
+    /**
+      * Creates an instance of the current type.
       *
       */
+    constructor() {
+      super()
+
+      // Attach a shadow DOM tree to this element and
+      // append the template to the shadow root.
+      this.attachShadow({ mode: 'open' })
+        .appendChild(template.content.cloneNode(true))
+
+      // Get necessary elements in shadowroot.
+      this.#container = this.shadowRoot.querySelector('#container')
+      this.#convertBtn = this.shadowRoot.querySelector('#convert-btn')
+    }
+
+    /**
+     * Called when element is inserted to the DOM.
+     *
+     */
     connectedCallback () {
 
       this.#convertBtn.addEventListener('click', (event) => {
@@ -124,12 +124,27 @@ import Wizard from '@violacaroline/wizard'
           value: this.#container.querySelector('#input-value').value
         }
 
-        const convert = new window.CustomEvent('convert', {
-          detail: this.#wizard.convertWeight(options)
-        })
-        this.dispatchEvent(convert)
+        try {
+          const convert = new window.CustomEvent('convert', {
+            detail: this.#wizard.convertWeight(options)
+          })
+          this.dispatchEvent(convert)
+        } catch (error) {
+          const conversionError = new window.CustomEvent('conversion-error', {
+            detail: error.message
+          })
+          this.dispatchEvent(conversionError)
+        }
       })
     }
-   }
- )
- 
+
+    /**
+     * Called when element is removed from the DOM.
+     */
+    disconnectedCallback () {
+      this.#container.querySelector('#unit-select-from').value = ''
+      this.#container.querySelector('#unit-select-to').value = ''
+      this.#container.querySelector('#input-value').value = ''
+    }
+  }
+)

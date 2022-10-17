@@ -120,7 +120,6 @@ customElements.define('wind-component',
       *
       */
     connectedCallback () {
-
       this.#convertBtn.addEventListener('click', (event) => {
         event.preventDefault()
         this.removeAttribute('result')
@@ -131,11 +130,27 @@ customElements.define('wind-component',
           value: this.#container.querySelector('#input-value').value
         }
 
-        const convert = new window.CustomEvent('convert', {
-          detail: this.#wizard.convertWind(options)
-        })
-        this.dispatchEvent(convert)
+        try {
+          const convert = new window.CustomEvent('convert', {
+            detail: this.#wizard.convertWind(options)
+          })
+          this.dispatchEvent(convert)
+        } catch (error) {
+          const conversionError = new window.CustomEvent('conversion-error', {
+            detail: error.message
+          })
+          this.dispatchEvent(conversionError)
+        }        
       })
+    }
+
+    /**
+     * Called when element is removed from the DOM.
+     */
+    disconnectedCallback () {
+      this.#container.querySelector('#unit-select-from').value = ''
+      this.#container.querySelector('#unit-select-to').value = ''
+      this.#container.querySelector('#input-value').value = ''
     }
   }
 )

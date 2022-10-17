@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/AndreaViolaCaroline/1dv610-assignment-L2#readme",
   "dependencies": {
-    "@violacaroline/wizard": "^2.0.3",
+    "@violacaroline/wizard": "^3.0.6",
     "vite": "^3.1.6"
   }
 }
