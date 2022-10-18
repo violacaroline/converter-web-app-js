@@ -104,22 +104,9 @@ customElements.define('temp-component',
       this.#convertBtn.addEventListener('click', (event) => {
         event.preventDefault()
 
-        const options = {
-          fromUnit: this.#container.querySelector('#unit-select-from').value,
-          value: this.#container.querySelector('#input-value').value
-        }
+        const options = this.createOptionsObject()
 
-        try {
-          const convert = new window.CustomEvent('convert', {
-            detail: this.#wizard.convertTemperature(options)
-          })
-          this.dispatchEvent(convert)
-        } catch (error) {
-          const conversionError = new window.CustomEvent('conversion-error', {
-            detail: error.message
-          })
-          this.dispatchEvent(conversionError)
-        }
+        this.tryConversion(options)
       })
     }
 
@@ -129,6 +116,37 @@ customElements.define('temp-component',
     disconnectedCallback () {
       this.#container.querySelector('#unit-select-from').value = ''
       this.#container.querySelector('#input-value').value = ''
+    }
+
+    /**
+     * Create options object.
+     *
+     * @return - An options object
+     */
+    createOptionsObject () {
+      return {
+        fromUnit: this.#container.querySelector('#unit-select-from').value,
+        value: this.#container.querySelector('#input-value').value
+      }
+    }
+
+    /**
+     * Try conversion.
+     *
+     * @param {object} options - The options object containing the values to convert.
+     */
+    tryConversion (options) {
+      try {
+        const convert = new window.CustomEvent('convert', {
+          detail: this.#wizard.convertTemperature(options)
+        })
+        this.dispatchEvent(convert)
+      } catch (error) {
+        const conversionError = new window.CustomEvent('conversion-error', {
+          detail: error.message
+        })
+        this.dispatchEvent(conversionError)
+      }
     }
   }
 )
