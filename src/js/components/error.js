@@ -19,6 +19,9 @@ customElements.define('error-component',
    * Represents the error element.
    */
   class extends HTMLElement {
+    /**
+     * Displays an error message.
+     */
     #errorMessage
 
     /**

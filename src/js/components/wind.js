@@ -83,14 +83,7 @@ customElements.define('wind-component',
    * Represents the wind element.
    */
   class extends HTMLElement {
-    /**
-     * The container element holding all other elements.
-     */
     #container
-
-    /**
-     * The button to press to convert.
-     */
     #convertBtn
 
     /**

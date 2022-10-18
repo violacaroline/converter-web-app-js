@@ -118,7 +118,7 @@ customElements.define('navigation-component',
       })
 
       /**
-       * User choosing type of conversion events.
+       * User choosing type of conversion event listeners.
        */
       this.#windButton.addEventListener('click', () => {
         const convertWind = new window.CustomEvent('convertWind')

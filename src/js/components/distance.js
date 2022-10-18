@@ -77,14 +77,7 @@ customElements.define('distance-component',
    * Represents the distance element.
    */
   class extends HTMLElement {
-    /**
-     * The container element holding all other elements.
-     */
     #container
-
-    /**
-     * The button to press to convert.
-     */
     #convertBtn
 
     /**
