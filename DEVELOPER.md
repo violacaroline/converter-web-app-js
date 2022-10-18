@@ -11,7 +11,7 @@ The Wizard application is a converter that will convert some of the most common 
 * A user should be able to convert weight in ounces and pounds to grams and kilograms.
 * A user should be able to convert volume in pints and gallons to litres.
 * A user should get an informative error message displayed if conversion failed.
-* A user should not have to choose the values again if user stays on page when first conversion fails.
+* A user should not have to choose the values again if user stays on page when previous conversion fails.
 * The values should clear out if user leaves page.
 
 ## Use-Cases
