@@ -80,17 +80,17 @@ customElements.define('distance-component',
     /**
      * The container element holding all other elements.
      */
-     #container
+    #container
 
-     /**
-      * The button to press to convert.
-      */
-     #convertBtn
- 
-     /**
-      * The wizard doing the conversion.
-      */
-     #wizard = new Wizard()
+    /**
+     * The button to press to convert.
+     */
+    #convertBtn
+
+    /**
+     * The wizard doing the conversion.
+     */
+    #wizard = new Wizard()
 
     /**
       * Creates an instance of the current type.
@@ -113,38 +113,56 @@ customElements.define('distance-component',
       * Called when element is inserted to the DOM.
       *
       */
-     connectedCallback () {
+    connectedCallback () {
 
       this.#convertBtn.addEventListener('click', (event) => {
         event.preventDefault()
 
-        const options = {
-          fromUnit: this.#container.querySelector('#unit-select-from').value,
-          toUnit: this.#container.querySelector('#unit-select-to').value,
-          value: this.#container.querySelector('#input-value').value
-        }
+        const options = this.createOptionsObject()
 
-        try {
-          const convert = new window.CustomEvent('convert', {
-            detail: this.#wizard.convertDistance(options)
-          })
-          this.dispatchEvent(convert)
-        } catch (error) {
-          const conversionError = new window.CustomEvent('conversion-error', {
-            detail: error.message
-          })
-          this.dispatchEvent(conversionError)
-        }        
+        this.tryConversion(options)
       })
     }
 
     /**
      * Called when element is removed from the DOM.
      */
-     disconnectedCallback () {
+    disconnectedCallback () {
       this.#container.querySelector('#unit-select-from').value = ''
       this.#container.querySelector('#unit-select-to').value = ''
       this.#container.querySelector('#input-value').value = ''
+    }
+
+    /**
+     * Create options object.
+     *
+     * @return - An options object
+     */
+    createOptionsObject () {
+      return {
+        fromUnit: this.#container.querySelector('#unit-select-from').value,
+        toUnit: this.#container.querySelector('#unit-select-to').value,
+        value: this.#container.querySelector('#input-value').value
+      }
+    }
+
+    /**
+     * Try conversion.
+     *
+     * @param {object} options - The options object containing the values to convert.
+     */
+    tryConversion (options) {
+      try {
+        const convert = new window.CustomEvent('convert', {
+          detail: this.#wizard.convertDistance(options)
+        })
+        this.dispatchEvent(convert)
+      } catch (error) {
+        const conversionError = new window.CustomEvent('conversion-error', {
+          detail: error.message
+        })
+        this.dispatchEvent(conversionError)
+      }
     }
   }
 )
