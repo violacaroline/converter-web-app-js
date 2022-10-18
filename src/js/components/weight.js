@@ -118,23 +118,9 @@ customElements.define('weight-component',
       this.#convertBtn.addEventListener('click', (event) => {
         event.preventDefault()
 
-        const options = {
-          fromUnit: this.#container.querySelector('#unit-select-from').value,
-          toUnit: this.#container.querySelector('#unit-select-to').value,
-          value: this.#container.querySelector('#input-value').value
-        }
+        const options = this.createOptionsObject()
 
-        try {
-          const convert = new window.CustomEvent('convert', {
-            detail: this.#wizard.convertWeight(options)
-          })
-          this.dispatchEvent(convert)
-        } catch (error) {
-          const conversionError = new window.CustomEvent('conversion-error', {
-            detail: error.message
-          })
-          this.dispatchEvent(conversionError)
-        }
+        this.tryConversion(options)
       })
     }
 
@@ -145,6 +131,38 @@ customElements.define('weight-component',
       this.#container.querySelector('#unit-select-from').value = ''
       this.#container.querySelector('#unit-select-to').value = ''
       this.#container.querySelector('#input-value').value = ''
+    }
+
+    /**
+     * Create options object.
+     *
+     * @return - An options object
+     */
+    createOptionsObject () {
+      return {
+        fromUnit: this.#container.querySelector('#unit-select-from').value,
+        toUnit: this.#container.querySelector('#unit-select-to').value,
+        value: this.#container.querySelector('#input-value').value
+      }
+    }
+
+    /**
+     * Try conversion.
+     *
+     * @param {object} options - The options object containing the values to convert.
+     */
+    tryConversion (options) {
+      try {
+        const convert = new window.CustomEvent('convert', {
+          detail: this.#wizard.convertWeight(options)
+        })
+        this.dispatchEvent(convert)
+      } catch (error) {
+        const conversionError = new window.CustomEvent('conversion-error', {
+          detail: error.message
+        })
+        this.dispatchEvent(conversionError)
+      }
     }
   }
 )
