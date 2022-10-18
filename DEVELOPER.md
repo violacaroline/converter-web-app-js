@@ -335,8 +335,22 @@ Use case: UC6
 
 * App displays "Number must be positive"
 
-| Test  | UC6  |
-| ----- |----- |
-| TC6.1   |  OK  |
-| TC6.2   |  OK  |
-| COVERAGE & SUCCESS  |  2/2 OK  |
+#### Test steps Alternate Scenario TC6.3
+
+* Start the app
+* System shows home page
+* Press "Volume" button
+* Fill in value in the value field: 100
+* Leave "--Please choose a unit to convert FROM--" selected
+* Press "Convert!" button
+
+#### Expected
+
+* App displays "You have not provided all necessary info (unit to convert from/to or the value)"
+
+| Test  | UC6  | Fixes |
+| ----- |----- | ----- |
+| TC6.1   |  OK  |  |
+| TC6.2   |  OK  |  |
+| TC6.3   |  NOT OK  | Fixed bug in package - OK |
+| COVERAGE & SUCCESS  |  2/3 OK  | 3/3 OK |

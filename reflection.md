@@ -1,3 +1,15 @@
+# Reflection
+
+##  Navigate easier Daniel!
+
+### L1
+* DEVELOPER.md https://github.com/AndreaViolaCaroline/1dv610-assignment-L1/blob/main/DEVELOPER.md
+* README.md https://github.com/AndreaViolaCaroline/1dv610-assignment-L1/blob/main/README.md
+
+### L2
+* DEVELOPER.md 
+
+
 * BREAK OUT ALL IF STATEMENTS TO INCREASE READABILITY & MAINTAINABILITY. 
 * STRUCTURE FILES, 1 FOLDER PER UNIT TYPE
 * MOVED THESE IF STATEMENTS INTO THEIR RESPECTIVE CLASSES SINCE THAT ON IS REALLY THE INFORMATION EXPERT FEATURE ENVY AVOIDED. 
