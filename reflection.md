@@ -72,9 +72,29 @@ Vertical formatting was probably the most important refactoring that I performed
 ![Vertical density](./images/vertical-density.png)
 
 ### Chapter 6
+
+I feel as through my code in this case I find it hard to draw a concrete example, but - "The method should not invoke methods on objects that are returned by any of the allowed functions. In other words, talk to friends, not to strangers." Basically I have three layers of abstraction by now (low: get the algorithm and convert, middle: validate user input, high: get user input). However I am not seeing any "trainwrecks". I consider my middle layer the helping hand in this. It gets some input and validates it, then calls its lower friend to change the input, gets something back and then gives that to the higher level. Meaning the higher and the lower layer never speak they are "strangers" and they only speak with their one common friend, middle.
+
 ### Chapter 7
+
+"Use exceptions rather than return codes", "Each exception that you throw should provide enough context to determine the source and
+location of an error" and the old goodie "Error handling is one thing!". This chapter helped me solve (I think) what I mentioned as a problem above in the overview. First of all I placed error handling in seperate error handlers depending on what measurement unit it should handle. Then I chose to define exceptions classes, and my errors now provide a context - the library now throws errors that are of specific types and the documentation informs library users about it!
+
+![Throwing a temperature error](./images/temp-error.png)
+
 ### Chapter 8
+
+Clean boundaries
+
 ### Chapter 9
+
+Clean tests, test first, TDD
+
 ### Chapter 10
+
+The SRP or the Single Responsibility Principle was definitely something that improved when I started yanking parts of my code out from one place and designated it another! It amazes me that I at first did not see that my classes were big, you can really stare yourself blind which explains why this principle is the most abused one in OOP. Now, in my package, all measurment units has their own converter class and their own error handler. One thing that crossed my mind though, as a worry, was that I feel like there is duplicated code, don't get me wrong this was still there before, at leat now its more organized and I mean, I think my subject is a bit repetetive to start? As in, conversion is really the same idea - the only thing that changes are the units and the algorithms, but to then be able to validate them I need their specific method to do this, now they are encapsulated in a certain class rather than a loose hanging "do-it-all-handler"
+
 ### Chapter 11
+
+"The power of separating concerns through aspect-like approaches can’t be overstated." (Robert C Martin, Clean Code, p.166). This is what I have tried to to be making my library "deeper". I feel like I can describe my application as a checkered net which makes me think of cross-cutting concerns that the book mentions. Horizontally I have my lower, middle and higher abstraction layers stacked and vertically I have my domain reaching their specific "inner part" of the lib which I believe resonates with the fact that some concerns "tend to cut across natural object boundaries of a domain." (Robert C Martin, Clean Code, p.160)
 
