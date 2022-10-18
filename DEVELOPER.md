@@ -2,6 +2,9 @@
 
 The Wizard application is a converter that will convert some of the most common units for wind, temperature, distance, weight and volume for its user.
 
+The app is mirroring the Wizard package entirely to show what conversions are available. 
+A wish to extend the app would call for an extension on the package primarily.
+
 ## Requirements
 
 * A user should be able to return to home page.
