@@ -84,11 +84,11 @@ location of an error" and the old goodie "Error handling is one thing!". This ch
 
 ### Chapter 8
 
-Clean boundaries
+Clean boundaries i.e separating others code from the code I write. The book states: "There is a natural tension between the provider of an interface and the user of an interface." (Robert C Martin, Clean Code, p.114). Now after building my own "third-party-library" I realize that one way to avoid bad experiences from mixed in libraries are the communication about ones library! I have worked really hard on the readme for my lib as to avoid people ending up missunderstanding it and using it the wrong way! Code examples and informative descriptions of how the library acts (for example throws error) will set any user up for an easier intergration of the library.
 
 ### Chapter 9
 
-Clean tests, test first, TDD
+I need to improve here in the sense that I only test manually, simply because I dont know how to write automatic test cases. It's clear and obvious to me that test code should follow the same guide lines as production code and be of high quality. I find it a bit hard to resonate with the chapter personally since I have not written automatic tests like that, but one thing that I am all here for is test driven development, it makes me fear less as the book mentions and I also control the way I build my app. I mean I don't just start a little bit here a little bit there and not test if I'm on the right track - tests make me want to slow down and methodically build a good piece of software, I start in one corner, test a little, code a little, test again and then when that part is more or less fully funtioning I move on to the next.
 
 ### Chapter 10
 
