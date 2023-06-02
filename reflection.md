@@ -1,6 +1,6 @@
 # Reflection
 
-##  Navigate easier Daniel!
+##  Navigate easier!
 
 ### L1
 * DEVELOPER.md https://github.com/AndreaViolaCaroline/1dv610-assignment-L1/blob/main/DEVELOPER.md
